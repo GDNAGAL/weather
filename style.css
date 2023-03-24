@@ -2306,3 +2306,6 @@ form input[type="reset"] {
 .today .moredetail {
   display: inline;
 }
+.today {
+  cursor: default !important;
+}

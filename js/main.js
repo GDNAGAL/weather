@@ -29,6 +29,7 @@ const getdata = async function (cityLocation = "Bikaner") {
     });
   } catch (err) {
     alert("Please Check City Name ! " + err);
+    defaultload();
   }
 };
 
@@ -63,7 +64,7 @@ function forecastPrint(date, cityLocation) {
 </div>`;
 }
 
-//submit form
+//submit form and get data
 formEl.addEventListener("submit", function () {
   const cityval = document.querySelector("#cityval").value;
   if (!cityval) return;
@@ -72,3 +73,9 @@ formEl.addEventListener("submit", function () {
   // return inputval;
   getdata(cityval);
 });
+
+// default load data
+defaultload();
+function defaultload() {
+  window.addEventListener("load", getdata());
+}

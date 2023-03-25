@@ -20,7 +20,9 @@ section,
 summary {
   display: block;
 }
-
+* {
+  text-transform: capitalize;
+}
 audio,
 canvas,
 video {
@@ -1785,7 +1787,7 @@ form input[type="reset"] {
   vertical-align: middle;
 }
 .forecast-container .forecast.today .degree .num {
-  font-size: 90px;
+  font-size: 70px !important;
   font-size: 6.4285714286rem;
   margin-right: 30px;
 }

@@ -3,35 +3,42 @@ const dat = new Date();
 const todaydate = dat.toISOString().slice(0, 10);
 const formEl = document.querySelector("#find-location");
 
-// factch data from api
+// Fetch data from api
 const getdata = async function (cityLocation = "Bikaner") {
   try {
-    const factchapi = await fetch(
+    const fetchApi = await fetch(
       `http://api.weatherapi.com/v1/forecast.json?key=776313bc8d2245078a660229232403&q=${cityLocation}&days=7&aqi=yes&alerts=yes`
     );
-    const data = await factchapi.json();
-    const response_forecastday = data.forecast.forecastday;
-    // console.log(data);
+    const data = await fetchApi.json();
+    const response_forecast = data.forecast.forecastday;
+    forecast_container.innerHTML = "";
+    document.querySelector("#cityval").value = "";
     for (d = 0; d < 7; d++) {
       forecast_container.insertAdjacentHTML(
         "beforeend",
-        forecastPrint(response_forecastday[d], data)
+        forecastPrint(response_forecast[d], data)
       );
     }
-    const foreCast = document.querySelectorAll(".forecast");
-    foreCast.forEach((item, index) => {
-      item.addEventListener("click", function () {
-        for (i = 0; i < foreCast.length; i++) {
-          foreCast[i].classList.remove("today");
-        }
-        foreCast[index].classList.toggle("today");
-      });
-    });
+    // Calling the active class function
+    transRender();
   } catch (err) {
     alert("Please Check City Name ! " + err);
     defaultload();
   }
 };
+
+// Function to create active class
+function transRender() {
+	const foreCast = document.querySelectorAll(".forecast");
+	foreCast.forEach((item, index) => {
+	  item.addEventListener("click", function () {
+	    for (i = 0; i < foreCast.length; i++) {
+	      foreCast[i].classList.remove("today");
+	    }
+	    foreCast[index].classList.toggle("today");
+	  });
+	});
+}
 
 const weekday = [
   "Sunday",
@@ -79,9 +86,7 @@ function forecastPrint(date, cityLocation) {
 //submit form and get data
 formEl.addEventListener("submit", function () {
   const cityval = document.querySelector("#cityval").value;
-  if (!cityval) return;
-  forecast_container.innerHTML = "";
-  document.querySelector("#cityval").value = "";
+  if (!cityval) return;   // Guard clause
   // return inputval;
   getdata(cityval);
 });

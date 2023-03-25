@@ -11,11 +11,11 @@ const getdata = async function (cityLocation = "Bikaner") {
     );
     const data = await factchapi.json();
     const response_forecastday = data.forecast.forecastday;
-    console.log(response_forecastday);
+    // console.log(data);
     for (d = 0; d < 7; d++) {
       forecast_container.insertAdjacentHTML(
         "beforeend",
-        forecastPrint(response_forecastday[d], cityLocation)
+        forecastPrint(response_forecastday[d], data)
       );
     }
     const foreCast = document.querySelectorAll(".forecast");
@@ -33,22 +33,34 @@ const getdata = async function (cityLocation = "Bikaner") {
   }
 };
 
+const weekday = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
 // print forecast
 function forecastPrint(date, cityLocation) {
-  // console.log(date);
+  let getday = new Date(date.date);
+  let day = weekday[getday.getDay()];
+  // console.log(day);
   return `<div class="forecast ${date.date == todaydate ? "today" : ""}">
   <div class="forecast-header">
-    <div class="day">Monday</div>
+    <div class="day">${day}</div>
     <div class="date">${date.date}</div>
   </div>
   <div class="forecast-content">
-    <div class="location">${cityLocation}</div>
+    <div class="location">${cityLocation.location.name}</div>
+    <span class="moredetail">${cityLocation.location.region}, ${
+    cityLocation.location.country
+  }</span>
     <div class="degree">
       <div class="num">${date.day.avgtemp_c}<sup>o</sup>C</div>
       <div class="forecast-icon">
-        <img src="${date.day.condition.icon}" alt="${
-    date.day.condition.text
-  }" class="icon-f" />
+        <img src="${date.day.condition.icon}"  class="icon-f" />
       </div>
     </div>
     <span class="moredetail">

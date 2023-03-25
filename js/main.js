@@ -22,22 +22,22 @@ const getdata = async function (cityLocation = "Bikaner") {
     // Calling the active class function
     transRender();
   } catch (err) {
-    alert("Please Check City Name ! " + err);
+    alert("Please Check City Name ! ");
     defaultload();
   }
 };
 
 // Function to create active class
 function transRender() {
-	const foreCast = document.querySelectorAll(".forecast");
-	foreCast.forEach((item, index) => {
-	  item.addEventListener("click", function () {
-	    for (i = 0; i < foreCast.length; i++) {
-	      foreCast[i].classList.remove("today");
-	    }
-	    foreCast[index].classList.toggle("today");
-	  });
-	});
+  const foreCast = document.querySelectorAll(".forecast");
+  foreCast.forEach((item, index) => {
+    item.addEventListener("click", function () {
+      for (i = 0; i < foreCast.length; i++) {
+        foreCast[i].classList.remove("today");
+      }
+      foreCast[index].classList.toggle("today");
+    });
+  });
 }
 
 const weekday = [
@@ -86,7 +86,7 @@ function forecastPrint(date, cityLocation) {
 //submit form and get data
 formEl.addEventListener("submit", function () {
   const cityval = document.querySelector("#cityval").value;
-  if (!cityval) return;   // Guard clause
+  if (!cityval) return; // Guard clause
   // return inputval;
   getdata(cityval);
 });
